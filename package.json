@@ -2,9 +2,10 @@
   "name": "shri_homework_async",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "additional/index.js",
   "scripts": {
     "start": "parcel index.html --open",
+    "start-additional": "parcel additional/index.html --open",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

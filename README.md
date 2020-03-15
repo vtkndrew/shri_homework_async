@@ -1,9 +1,9 @@
 # Домашнее задание ШРИ по теме "Асинхронность"
 
 Мой вариант №5: [решить квадратное уравнение](#Вариант-5)
-Решение лежит в файле – [variant5.html](variant5.html)
+Решение лежит в файле – [index.html](index.html)
 
-Также я выполнил дополнительные задания (на реализацию Promise._any, Promise._allSettled, Promise.prototype._finally) в файле – [index.js](index.js)
+Также я выполнил дополнительные задания (на реализацию Promise._any, Promise._allSettled, Promise.prototype._finally) в файле – [additional/index.js](additional/index.js)
 
 ---
 # Описание домашнего задания
