@@ -1,0 +1,25 @@
+{
+  "name": "shri_homework_async",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "parcel index.html --open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spelot/shri_homework_async.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/spelot/shri_homework_async/issues"
+  },
+  "homepage": "https://github.com/spelot/shri_homework_async#readme",
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
+    "parcel": "^1.12.4"
+  }
+}

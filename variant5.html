@@ -1,0 +1,108 @@
+Вариант #5: Квадратное уравнение
+
+<script src="shri-async-hw.js"></script>
+
+<script>
+  const {
+      AsyncArray,
+      add,
+      subtract,
+      multiply,
+      divide,
+      mod,
+      less,
+      equal,
+      lessOrEqual,
+      sqrt
+  } = Homework;
+
+  function promisify(f, ctx = this) {
+    return function (...args) {
+      return new Promise((resolve, reject) => {
+        function callback(result) {
+          resolve(result);
+        }
+
+        f.call(ctx, ...args, callback);
+      });
+    };
+  };
+
+  addPromisified = promisify(add);
+  subtractPromisified = promisify(subtract);
+  multiplyPromisified = promisify(multiply);
+  dividePromisified = promisify(divide);
+  modPromisified = promisify(mod);
+  lessPromisified = promisify(less);
+  equalPromisified = promisify(equal);
+  lessOrEqualPromisified = promisify(lessOrEqual);
+  sqrtPromisified = promisify(sqrt);
+
+  function makeAsyncArray(initial = []) {
+    const arr = new AsyncArray(initial);
+    arr.set = promisify(arr.set, arr);
+    arr.push = promisify(arr.push, arr);
+
+    arr.get = promisify(arr.get, arr);
+    arr.pop = promisify(arr.pop, arr);
+    arr.length = promisify(arr.length, arr);
+
+    return arr;
+  }
+
+  async function getSolutionQuadraticEquation(a, b, c, cb = () => {}) {
+    console.log(`%cрешение квадратного уравнения (${a})*x^2 + (${b})*x + (${c}) = 0`, 'background: #829FD9; color: black');
+
+    const [bb, ac] = await Promise.all([
+      multiplyPromisified(b, b),
+      multiplyPromisified(a, c)
+    ]);
+
+    const ac4 = await multiplyPromisified(ac, 4);
+    const D = await subtractPromisified(bb, ac4);
+
+    if ( await lessOrEqualPromisified(0, D) ) {
+      const [negativeB, a2] = await Promise.all([
+        multiplyPromisified(b, -1),
+        multiplyPromisified(a, 2)
+      ]);
+
+      if ( await equalPromisified(0, D) ) {
+        const x = await dividePromisified(negativeB, a2);
+        cb(x);
+      } else {
+        const sqrtD = await sqrtPromisified(D);
+        const calcNumerator = async (id) => {
+          if ( await equalPromisified(id, 1) ) {
+            return addPromisified(negativeB, sqrtD);
+          } else {
+            return subtractPromisified(negativeB, sqrtD);
+          }
+        };
+        const [numerator1, numerator2] = await Promise.all([
+          calcNumerator(1),
+          calcNumerator(2)
+        ]);
+        const [x1, x2] = await Promise.all([
+          dividePromisified(numerator1, a2),
+          dividePromisified(numerator2, a2)
+        ]);
+
+        cb(x1, x2);
+      }
+    } else {
+      cb();
+    }
+  };
+
+  getSolutionQuadraticEquation(1, 2, -1, (value1, value2) => {
+    if (value1 === undefined && value2 === undefined) {
+      console.log('нет решений');
+    } else if (value2 === undefined) {
+      console.log('x = ', value1);
+    } else {
+      console.log(`x1 = ${value1}; x2 = ${value2}`);
+    }
+  });
+
+</script>
